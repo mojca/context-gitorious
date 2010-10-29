@@ -82,7 +82,7 @@ if ($nd > $dt) {
 }
 
 if ($update_stable && $update_beta) {
-  if ($nd > $nsd) {
+  if ($nd < $nsd) {
     system ("/usr/bin/logger -t ConTeXt updating beta and stable");
     print "updating beta and stable\n";
     &update_git_repo("beta");
@@ -112,7 +112,8 @@ if ($update_stable && $update_beta) {
 }
 
 sub update_git_repo {
-    my $update_version = @_;
+    my $update_version = $_[0];
+    print "$update_version\n";
 
     #download, update git, git push
     
@@ -154,11 +155,12 @@ sub update_git_repo {
     my $message = "empty ";
     while (<FILE>) {
       if (/\\newcontextversion{(\d\d\d\d\.\d\d\.\d\d\s\d\d:\d\d)}/) {
-        print "$1\n";
+        my $newcontextversion = $1;
+        print "$newcontextversion\n";
         if ($update_version =~ /beta/) {
-            $message = "beta " . $1;
+            $message = "beta " . $newcontextversion;
         } else {
-            $message = "stable " . $1;
+            $message = "stable " . $newcontextversion;
         }
         last;
       }
@@ -169,15 +171,16 @@ sub update_git_repo {
     system("git add .") == 0 or die "ConTeXt git add1 all failed";
     system("git add -u") == 0 or die "ConTeXt git add2 all failed";
     system("git commit --message=\"$message\"") == 0 or die "ConTeXt git commit failed";
-    #system("git push origin origin") == 0 or die "ConTeXt git push failed";
+    system("git push origin origin") == 0 or die "ConTeXt git push failed";
     chdir "..";
 
     if ($update_version =~ /beta/) {
       open FILE, ">", "last_update.txt" or die $!;
+      print FILE $newdate;
     } else {
       open FILE, ">", "last_stable_update.txt" or die $!;
+      print FILE $new_stable_date;
     }
-    print FILE $newdate;
     close FILE;
 }
  
