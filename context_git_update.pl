@@ -150,7 +150,7 @@ sub update_git_repo {
     }
 
     chdir "context";
-    open FILE, "<", "tex/context/base/cont-new.tex" or die $!;
+    open FILE, "<", "tex/context/base/cont-new.mkiv" or die $!;
 
     my $message = "empty ";
     while (<FILE>) {
