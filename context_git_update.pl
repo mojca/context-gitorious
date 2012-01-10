@@ -28,7 +28,7 @@ my $stable_content = get("http://www.pragma-ade.com/download-1.htm");
 die "ConTeXt webpage stable download failed" unless defined $stable_content;
 
 my $new_stable_date;
-if ($stable_content =~ /<td nowrap><div class="more-room">(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d)<\/div><\/td>/) {
+if ($stable_content =~ /<td nowrap="true"><div class="more-room">(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d)<\/div><\/td>/) {
   $new_stable_date = $1;
   system ("/usr/bin/logger -t ConTeXt $stable_date\n");
   system ("/usr/bin/logger -t ConTeXt $new_stable_date\n");
@@ -39,7 +39,7 @@ if ($stable_content =~ /<td nowrap><div class="more-room">(\d\d\d\d-\d\d-\d\d\s\
 }
 
 my $newdate;
-if ($content =~ /<td nowrap><div class="more-room">(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d)<\/div><\/td>/) {
+if ($content =~ /<td nowrap="true"><div class="more-room">(\d\d\d\d-\d\d-\d\d\s\d\d:\d\d)<\/div><\/td>/) {
   $newdate = $1;
   system ("/usr/bin/logger -t ConTeXt $date\n");
   system ("/usr/bin/logger -t ConTeXt $newdate\n");
