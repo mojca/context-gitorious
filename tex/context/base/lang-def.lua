@@ -315,6 +315,15 @@ local specifications = allocate {
         ["variant"] = "ru",
     },
     {
+        ["description"] = "Serbian",
+        ["script"] = "cyrl",
+        ["bibliographical"] = "srb",
+        ["terminological"] = "srb",
+        ["context"] = "sr",
+        ["opentype"] = "srb",
+        ["variant"] = "sr",
+    },
+    {
         ["description"] = "Slovak",
         ["script"] = "latn",
         ["bibliographical"] = "slo",
